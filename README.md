@@ -27,13 +27,13 @@ To view this project locally, simply download or clone the repository and open t
 
 ## Project Structure
 
-**[index.html](index.html)**: The main HTML file containing the content and structure of the webpage.
+**[index.html](Task-1/index.html)**: The main HTML file containing the content and structure of the webpage.
 
-**[style.css](style.css)**: The CSS file for all styling and layout.
+**[style.css](Task-1/style.css)**: The CSS file for all styling and layout.
 
-**[script.js](script.js)**: The JavaScript file for interactive features.
+**[script.js](Task-1/script.js)**: The JavaScript file for interactive features.
 
-[website.jpg](website.jpg): The image used in the project.
+[website.jpg](Task-1/website.jpg): The image used in the project.
 
 ### Credits
 This project was created with inspiration from online tutorials.
