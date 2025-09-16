@@ -33,7 +33,7 @@ To run this project locally, simply clone the repository and open the `index.htm
 
 ```bash
 # Clone the repository
-git clone [https://github.com/Rajarshi-2005/Task-2.git](https://github.com/Rajarshi-2005/Task-2)
+git clone [https://github.com/Rajarshi-2005/ApexPlanet/tree/main/Task-2](https://github.com/Rajarshi-2005/ApexPlanet/tree/main/Task-2)
 
 # Navigate into the project directory
 cd Task-2
