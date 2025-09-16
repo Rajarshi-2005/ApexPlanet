@@ -5,7 +5,7 @@ This is a single-page web application built to practice intermediate front-end d
 ## Live Demo
 
 You can view the live project deployed on GitHub Pages here:
-[https://Rajarshi-2005.github.io/Task-2](https://Rajarshi-2005.github.io/Task-2)
+[https://Rajarshi-2005.github.io/Task-2/](https://Rajarshi-2005.github.io/Task-2/)
 
 
 ---
