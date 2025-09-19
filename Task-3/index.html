@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Interactive Page</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+
+    <div class="content-wrapper">
+        <main class="app-panel">
+            <header class="app-header">
+                <nav class="app-nav">
+                    <a href="#" class="nav-link active" data-target="quiz-view">
+                        <i class="fa-solid fa-circle-question"></i> Quiz Challenge
+                    </a>
+                    <a href="#" class="nav-link" data-target="joke-view">
+                        <i class="fa-solid fa-face-laugh-squint"></i> Joke Generator
+                    </a>
+                </nav>
+            </header>
+    
+            <div class="app-content">
+                <div id="quiz-view" class="view active">
+                    <h2 id="question">Question goes here</h2>
+                    <div id="answer-buttons"></div>
+                    <button id="next-btn">Next <i class="fa-solid fa-arrow-right"></i></button>
+                </div>
+    
+                <div id="joke-view" class="view">
+                    <div class="joke-container">
+                        <p class="joke-text" id="joke-setup"></p>
+                        <p class="joke-text" id="joke-punchline"></p>
+                    </div>
+                    <button id="jokeBtn"><i class="fa-solid fa-shuffle"></i> Get New Joke</button>
+                </div>
+            </div>
+        </main>
+    </div> <footer class="personal-footer">
+        <p>Created by Rajarshi</p>
+        <div class="social-links">
+            <a href="https://github.com/Rajarshi-2005" target="_blank" title="GitHub"><i class="fa-brands fa-github"></i></a>
+            <a href="https://www.linkedin.com/in/rajarshi-biswas-1b8617229/" target="_blank" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
