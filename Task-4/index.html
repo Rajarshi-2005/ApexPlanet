@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rajarshi | Creative Developer</title>
+    <link rel="stylesheet" href="style.css">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+
+    <div id="portfolio-view" class="view active">
+        <header>
+            <nav class="navbar">
+                <div class="logo">R.</div>
+                <ul class="nav-links">
+                    <li><a href="#hero">Home</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                <div class="burger">
+                    <div class="line1"></div>
+                    <div class="line2"></div>
+                    <div class="line3"></div>
+                </div>
+            </nav>
+        </header>
+
+        <main>
+            <section id="hero" class="hero-section anim-on-load">
+                <div class="hero-content">
+                    <img src="profile.jpg" alt="Rajarshi Profile" class="profile-pic">
+                    <p class="intro-text">Rajarshi — Creative Developer & Problem Solver</p>
+                    
+                    <!-- NEW PARAGRAPH ADDED HERE -->
+                    <p class="hero-description">
+                        I design and build elegant, intuitive web experiences. With a strong foundation in modern JavaScript and a passion for clean code, I transform complex ideas into functional and beautiful applications.
+                    </p>
+                    
+                    <h1 class="dynamic-role">
+                        <span>Building </span><span id="role-text" class="highlight"></span>
+                    </h1>
+                    <button class="cta-button" onclick="document.getElementById('projects').scrollIntoView({behavior: 'smooth'})">Explore My Work</button>
+                </div>
+            </section>
+
+            <section id="skills" class="skills-section">
+                <h2 class="section-title">Core Competencies</h2>
+                <div class="skills-content">
+                    <div class="skills-list">
+                        <div class="skill">
+                            <div class="skill-info"><span>HTML5 & CSS3</span><span>95%</span></div>
+                            <div class="skill-bar"><div class="skill-level" style="--skill-width: 95%;"></div></div>
+                        </div>
+                        <div class="skill">
+                            <div class="skill-info"><span>JavaScript (ES6+)</span><span>90%</span></div>
+                            <div class="skill-bar"><div class="skill-level" style="--skill-width: 90%;"></div></div>
+                        </div>
+                        <div class="skill">
+                             <div class="skill-info"><span>React</span><span>80%</span></div>
+                            <div class="skill-bar"><div class="skill-level" style="--skill-width: 80%;"></div></div>
+                        </div>
+                         <div class="skill">
+                             <div class="skill-info"><span>Node.js & Express</span><span>70%</span></div>
+                            <div class="skill-bar"><div class="skill-level" style="--skill-width: 70%;"></div></div>
+                        </div>
+                    </div>
+                    <div class="github-area">
+                        <h3>Code & Collaboration</h3>
+                        <p>My GitHub is a showcase of my journey in code, from small scripts to full-stack applications.</p>
+                        <a href="https://github.com/Rajarshi-2005" target="_blank" class="github-button">
+                            <i class="fab fa-github"></i>
+                            <span>View on GitHub</span>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <section id="projects" class="projects-section">
+                <h2 class="section-title">Featured Projects</h2>
+                <div class="project-gallery">
+                    <div class="project-card">
+                        <h3>To-Do List App</h3>
+                        <p>A sleek, persistent to-do application built with vanilla JavaScript, demonstrating core DOM manipulation and local storage principles.</p>
+                        <button class="view-project-btn" data-target="todo-view">Launch Project</button>
+                    </div>
+                    <div class="project-card">
+                        <h3>Product Listing Page</h3>
+                        <p>An interactive e-commerce interface showcasing dynamic data rendering, filtering, and sorting algorithms in JavaScript.</p>
+                        <button class="view-project-btn" data-target="product-view">Launch Project</button>
+                    </div>
+                </div>
+            </section>
+
+            <section id="contact" class="contact-section">
+                <h2 class="section-title">Let's Connect</h2>
+                <p>Have a project in mind or just want to say hello? My inbox is always open.</p>
+                <a href="mailto:email@example.com" class="contact-link">Get in Touch</a>
+            </section>
+        </main>
+        
+        <footer>
+            <p>Designed & Built by Rajarshi, 2025</p>
+        </footer>
+    </div>
+
+    <div id="todo-view" class="view project-app-view">
+        <button class="back-btn" data-target="portfolio-view">&larr; Back to Portfolio</button>
+        <div class="app-container">
+            <h1>To-Do List</h1>
+            <form id="todo-form">
+                <input type="text" id="todo-input" placeholder="What's on your mind?" autocomplete="off">
+                <!-- AFTER (The new code) -->
+                <button type="submit" aria-label="Add Task"></button>
+            </form>
+            <ul id="task-list"></ul>
+        </div>
+    </div>
+    <div id="product-view" class="view project-app-view">
+        <button class="back-btn" data-target="portfolio-view">&larr; Back to Portfolio</button>
+        <div class="app-container">
+            <h1>Product Showcase</h1>
+            <div class="controls">
+                <label for="category-filter">Filter:</label>
+                <select id="category-filter">
+                    <option value="all">All</option>
+                    <option value="electronics">Electronics</option>
+                    <option value="books">Books</option>
+                    <option value="clothing">Clothing</option>
+                </select>
+                <label for="sort-by">Sort:</label>
+                <select id="sort-by">
+                    <option value="default">Default</option>
+                    <option value="price-asc">Price: Low to High</option>
+                    <option value="price-desc">Price: High to Low</option>
+                </select>
+            </div>
+            <div id="product-grid"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
