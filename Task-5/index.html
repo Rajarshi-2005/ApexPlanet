@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RajarshiSTORE</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --background-color: #0A0A0A;
+            --surface-color: #141414;
+            --text-primary: #F5F5F5;
+            --text-secondary: #A3A3A3;
+            --border-color: #262626;
+            --success-color: #22c55e;
+            --danger-color: #ef4444;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; }
+
+        @keyframes aurora {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            background-color: var(--background-color);
+            color: var(--text-primary);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        header {
+            background: rgba(10, 10, 10, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 0 5%;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            min-height: 70px;
+        }
+
+        .logo {
+            font-weight: 800;
+            font-size: 24px;
+            text-decoration: none;
+            cursor: pointer;
+            color: var(--text-primary);
+        }
+
+        .nav-links { display: flex; align-items: center; gap: 2rem; }
+        .nav-link { color: var(--text-secondary); text-decoration: none; font-weight: 500; transition: color 0.3s ease; cursor: pointer; }
+        .nav-link:hover { color: var(--text-primary); }
+        .cart-link { display: flex; align-items: center; gap: 0.5rem; }
+        .cart-icon-bubble { background-color: var(--text-primary); color: #000; 
+            padding: 2px 8px; border-radius: 50%; font-size: 12px; font-weight: 700; }
+
+        main { padding: 0 5%; }
+        .page { display: none; }
+        .page.active { display: block; }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .hero {
+            text-align: center;
+            padding: 6rem 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(125deg, #003366, #1E1E1E, #660066);
+            background-size: 400% 400%;
+            animation: aurora 15s ease infinite;
+            filter: blur(50px);
+            z-index: -1;
+            opacity: 0.2;
+        }
+        .hero h1 { font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 800; margin-bottom: 1rem; line-height: 1.1; }
+        .hero p { color: var(--text-secondary); font-size: 1.25rem; max-width: 600px; margin: 0 auto; }
+        .section-title { text-align: center; font-size: 2.75rem; font-weight: 800; margin: 4rem 0 3rem 0; }
+        
+        .product-grid {
+            display: grid;
+            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            padding-bottom: 3rem;
+        }
+
+        .card {
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+            position: relative;
+        }
+        .card:hover {
+             border-color: #555;
+             transform: translateY(-5px);
+        }
+
+        .card .img-container {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            background-color: #000;
+            overflow: hidden;
+        }
+        .card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+        .card:hover img {
+            transform: scale(1.05);
+        }
+
+        .card-content { 
+            padding: 1.5rem; 
+            display: flex; 
+            flex-direction: column; 
+            flex-grow: 1;
+        }
+        .card h3 { margin: 0 0 0.5rem 0; font-size: 1.2rem; font-weight: 600; color: var(--text-primary); }
+        .card .price { font-size: 1.3rem; font-weight: 500; color: var(--text-secondary); margin: 0 0 1.5rem 0; }
+        .card-action { margin-top: auto; }
+
+        .magnetic-button {
+            background-color: var(--text-primary);
+            color: #000;
+            border: none;
+            padding: 14px 24px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            width: 100%;
+            transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.2s ease;
+            letter-spacing: 0.5px;
+        }
+        .magnetic-button:hover:not(:disabled) {
+            transform: scale(1.05);
+        }
+        .magnetic-button.success { background-color: var(--success-color); color: #FFF; }
+        .magnetic-button:disabled { cursor: not-allowed; opacity: 0.7; }
+        
+        .cart-container { display: flex; flex-direction: column; gap: 2rem; max-width: 1200px; margin: 0 auto; }
+        .cart-items, .cart-summary { background: var(--surface-color); border: 1px solid var(--border-color); padding: 1.5rem; border-radius: 16px; }
+        .cart-items { flex: 2; }
+        .cart-summary { flex: 1; height: fit-content; }
+        .cart-item { display: flex; align-items: center; gap: 1.5rem; padding: 1rem 0; border-bottom: 1px solid var(--border-color); }
+        .cart-item:last-child { border-bottom: none; }
+        .cart-item img { width: 80px; height: 80px; object-fit: cover; border-radius: 8px; background-color: #000; }
+        .item-details { flex-grow: 1; }
+        .item-name { font-weight: 600; margin: 0; font-size: 1.1rem; }
+        .item-price { color: var(--text-secondary); margin: 0.25rem 0 0 0; }
+        .remove-btn { background: transparent; color: var(--danger-color); border: 1px solid var(--danger-color); 
+            padding: 6px 12px; border-radius: 50px; cursor: pointer; transition: all 0.3s; font-weight: 500; }
+        .remove-btn:hover { background: var(--danger-color); color: white; }
+        .total-price { font-size: 1.5rem; font-weight: 700; margin-bottom: 1.5rem; text-align: center; }
+        #empty-cart-message { text-align: center; padding: 3rem; font-size: 1.2rem; color: var(--text-secondary); }
+        #empty-cart-message a { color: var(--text-primary); text-decoration: none; font-weight: 600; }
+        
+        footer { text-align: center; padding: 3rem; margin-top: 2rem; 
+            background: var(--surface-color); color: var(--text-secondary); border-top: 1px solid var(--border-color); }
+
+        @media (min-width: 992px) {
+            .cart-container { flex-direction: row; align-items: flex-start; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a class="logo" id="logo-btn">RajarshiSTORE</a>
+            <div class="nav-links">
+                <a class="nav-link" id="home-btn">Home</a>
+                <a class="nav-link cart-link" id="cart-btn">
+                    <span>Cart</span>
+                    <span class="cart-icon-bubble" id="cart-count">0</span>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div id="products-page" class="page active">
+            <section class="hero fade-in">
+                <h1>Where Innovation Lives.</h1>
+                <p>Discover next-generation tech essentials, designed to elevate your world.</p>
+            </section>
+            <section id="products">
+                <h2 class="section-title fade-in">Featured Products</h2>
+                <div class="product-grid" id="product-grid"></div>
+            </section>
+        </div>
+        <div id="cart-page" class="page">
+             <section id="cart-section">
+                <h2 class="section-title fade-in">Your Shopping Cart</h2>
+                <div class="cart-container fade-in" id="cart-container">
+                    <div class="cart-items" id="cart-items"></div>
+                    <div class="cart-summary" id="cart-summary"></div>
+                </div>
+            </section>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2025 RajarshiSTORE. All rights reserved.</p>
+    </footer>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+       const products = [
+            { id: 1, name: 'Aura Headphones', price: 249.99, 
+            image: 'https:images.pexels.com/photos/1649771/pexels-photo-1649771.jpeg?auto=compress&cs=tinysrgb&w=800', 
+            size: 'card-large' },
+            { id: 2, name: 'Chrono Smart Watch', price: 399.50, 
+            image: 'https:images.pexels.com/photos/125779/pexels-photo-125779.jpeg?auto=compress&cs=tinysrgb&w=800', 
+            size: '' },
+            { id: 3, name: 'Pulse Bluetooth Speaker', price: 125.00, 
+            image: 'https:images.pexels.com/photos/1034663/pexels-photo-1034663.jpeg?auto=compress&cs=tinysrgb&w=800', 
+            size: '' },
+            { id: 5, name: 'Ghost Mechanical Keyboard', price: 180.00, 
+            image: 'https:images.pexels.com/photos/2115217/pexels-photo-2115217.jpeg?auto=compress&cs=tinysrgb&w=1200', 
+            size: 'card-wide' },
+            { id: 6, name: 'Clarity 4K Webcam', price: 95.50, 
+            image: 'https:images.pexels.com/photos/6684273/pexels-photo-6684273.jpeg?auto=compress&cs=tinysrgb&w=800', 
+            size: '' },
+            { id: 7, name: 'Nova Portable SSD 2TB', price: 210.00, 
+            image: 'https:images.pexels.com/photos/459654/pexels-photo-459654.jpeg?auto=compress&cs=tinysrgb&w=800', 
+            size: 'card-tall' },
+            { id: 4, name: 'Viper Gaming Mouse', price: 75.99, 
+            image: 'https:images.pexels.com/photos/2115256/pexels-photo-2115256.jpeg?auto=compress&cs=tinysrgb&w=800', 
+            size: '' },
+            { id: 8, name: 'Nexus USB-C Hub', price: 59.99, 
+            image: 'https:images.pexels.com/photos/4380970/pexels-photo-4380970.jpeg?auto=compress&cs=tinysrgb&w=800', 
+            size: 'card-wide' }
+        ];
+
+
+        let cart = JSON.parse(localStorage.getItem('rajarshiStoreCart')) || [];
+
+        const productGrid = document.getElementById('product-grid');
+        const cartCount = document.getElementById('cart-count');
+        const cartItemsContainer = document.getElementById('cart-items');
+        const cartSummaryContainer = document.getElementById('cart-summary');
+        const productsPage = document.getElementById('products-page');
+        const cartPage = document.getElementById('cart-page');
+        const logoBtn = document.getElementById('logo-btn');
+        const homeBtn = document.getElementById('home-btn');
+        const cartBtn = document.getElementById('cart-btn');
+
+        const showProductsPage = () => { productsPage.classList.add('active'); cartPage.classList.remove('active'); };
+        const showCartPage = () => { productsPage.classList.remove('active'); cartPage.classList.add('active'); renderCartPage(); };
+        const saveCart = () => { localStorage.setItem('rajarshiStoreCart', JSON.stringify(cart)); };
+        const updateCartIcon = () => { cartCount.textContent = cart.length; };
+
+        const renderProducts = () => {
+            productGrid.innerHTML = '';
+            products.forEach(product => {
+                const card = document.createElement('div');
+                card.className = `card fade-in`;
+                card.innerHTML = `
+                    <div class="img-container"><img src="${product.image}" 
+                        alt="${product.name}" 
+                        onerror="this.parentElement.innerHTML = '<div style=\'display:flex;align-items:center;justify-content:center;
+                        height:100%;color:var(--text-secondary);\'>Image not found</div>';"></div>
+                    <div class="card-content">
+                        <h3>${product.name}</h3>
+                        <p class="price">₹${product.price.toLocaleString('en-IN')}</p>
+                        <div class="card-action">
+                            <button class="magnetic-button" data-id="${product.id}">Add to Cart</button>
+                        </div>
+                    </div>`;
+                productGrid.appendChild(card);
+            });
+            setupMagneticButtons();
+            setupFadeInAnimations();
+        };
+
+        const addToCart = (productId, buttonElement) => {
+            const productToAdd = products.find(p => p.id === productId);
+            if (productToAdd) {
+                cart.push(productToAdd);
+                saveCart();
+                updateCartIcon();
+                buttonElement.innerHTML = 'Added! ✔️';
+                buttonElement.classList.add('success');
+                buttonElement.disabled = true;
+                setTimeout(() => {
+                    buttonElement.innerHTML = 'Add to Cart';
+                    buttonElement.classList.remove('success');
+                    buttonElement.disabled = false;
+                }, 1500);
+            }
+        };
+
+        const removeFromCart = (index) => {
+            if (index > -1 && index < cart.length) {
+                cart.splice(index, 1);
+                saveCart();
+                updateCartIcon();
+                renderCartPage();
+            }
+        };
+
+        const renderCartPage = () => {
+            cartItemsContainer.innerHTML = '';
+            cartSummaryContainer.innerHTML = '';
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = `<p id="empty-cart-message">Your cart is empty. 
+                    <a href="#" id="cart-shopping-link">Continue Shopping</a></p>`;
+                document.getElementById('cart-shopping-link').addEventListener('click', (e) => { e.preventDefault(); showProductsPage(); });
+                cartSummaryContainer.style.display = 'none';
+                return;
+            }
+            cartSummaryContainer.style.display = 'block';
+            let totalPrice = 0;
+            cart.forEach((item, index) => {
+                totalPrice += item.price;
+                const cartItem = document.createElement('div');
+                cartItem.className = 'cart-item';
+                cartItem.innerHTML = `
+                    <img src="${item.image}" alt="${item.name}" onerror="this.style.display='none';">
+                    <div class="item-details">
+                        <p class="item-name">${item.name}</p>
+                        <p class="item-price">₹${item.price.toLocaleString('en-IN')}</p>
+                    </div>
+                    <button class="remove-btn" data-index="${index}">Remove</button>`;
+                cartItemsContainer.appendChild(cartItem);
+            });
+            cartSummaryContainer.innerHTML = `
+                <p class="total-price">Total: ₹${totalPrice.toLocaleString('en-IN')}</p>
+                <button class="magnetic-button checkout-btn">Proceed to Checkout</button>`;
+            setupMagneticButtons();
+        };
+
+        const setupFadeInAnimations = () => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+            document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        };
+
+        const setupMagneticButtons = () => {
+            document.querySelectorAll('.magnetic-button').forEach(button => {
+                button.addEventListener('mousemove', (e) => {
+                    if (window.matchMedia("(pointer: fine)").matches) {
+                        const { offsetX, offsetY, target } = e;
+                        const { clientWidth, clientHeight } = target;
+                        const x = (offsetX / clientWidth) - 0.5;
+                        const y = (offsetY / clientHeight) - 0.5;
+                        target.style.transform = `translate(${x * 15}px, ${y * 15}px) scale(1.05)`;
+                    }
+                });
+                button.addEventListener('mouseleave', (e) => {
+                    e.target.style.transform = 'translate(0, 0) scale(1)';
+                });
+            });
+        };
+
+        logoBtn.addEventListener('click', showProductsPage);
+        homeBtn.addEventListener('click', showProductsPage);
+        cartBtn.addEventListener('click', showCartPage);
+        
+        productGrid.addEventListener('click', (e) => {
+            if (e.target.classList.contains('magnetic-button')) {
+                const productId = parseInt(e.target.getAttribute('data-id'));
+                addToCart(productId, e.target);
+            }
+        });
+        
+        cartItemsContainer.addEventListener('click', (e) => {
+            if (e.target.classList.contains('remove-btn')) {
+                const index = parseInt(e.target.getAttribute('data-index'));
+                removeFromCart(index);
+            }
+        });
+
+        cartSummaryContainer.addEventListener('click', (e) => {
+            if (e.target.classList.contains('checkout-btn')) {
+                if (cart.length > 0) {
+                    alert('Thank you for your purchase! Your cart has been cleared.');
+                    cart = [];
+                    saveCart();
+                    updateCartIcon();
+                    renderCartPage();
+                } else {
+                    alert('Your cart is empty!');
+                }
+            }
+        });
+
+        updateCartIcon();
+        renderProducts();
+    });
+    </script>
+</body>
+</html>
+
