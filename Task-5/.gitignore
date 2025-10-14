@@ -1,0 +1,18 @@
+# Ignore Visual Studio Code specific files
+.vscode/
+
+# Ignore system files
+.DS_Store
+Thumbs.db
+
+# Ignore log files
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Ignore dependency directories
+node_modules/
+
+
+Now, when you upload your project to GitHub, Git will automatically ignore any of these files or folders if they exist. Your repository will stay clean and only contain the essential project file (`index.html`).
